@@ -1,5 +1,4 @@
 {
     "Alt-/": "lua:comment.comment",
-    "Ctrl-d": "DeleteLine",
     "CtrlUnderscore": "lua:comment.comment"
 }
