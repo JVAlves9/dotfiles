@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -10,7 +17,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -67,19 +74,24 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-zstyle ':omz:plugins:eza' 'icons' yes
-
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git eza fzf zsh-autosuggestions zsh-syntax-highlighting starship)
+plugins=(git eza fzf zsh-autosuggestions zsh-syntax-highlighting)
 
 
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}' --preview-window '~3'"
+
+zstyle ':omz:plugins:eza' 'icons' yes
+zstyle ':omz:plugins:eza' 'header' yes
+zstyle ':omz:plugins:eza' 'git-status' yes
+
+zstyle ':completion:*:*:make:*' tag-order 'targets'
+zstyle ':completion:*:make:*:targets' call-command true
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -124,5 +136,9 @@ export NVM_DIR="/Users/john/.nvm"
 eval "$(/Users/john/.local/bin/mise activate zsh)"
 eval "$(~/.local/bin/mise activate zsh)"
 alias close-desktop="kitten @ --to=unix:/tmp/desktop close-window"
+export MICRO_TRUECOLOR=1
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+export EDITOR="$(which micro)"
 # kitten icat -n --place 30x30@0x6 --scale-up --align left Downloads/pikachu.gif | fastfetch --logo-width 30 --raw -
