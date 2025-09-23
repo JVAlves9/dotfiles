@@ -1,21 +1,16 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your Oh My Zsh installation.
+export PATH="${PATH}:/Users/john/flutter/bin"
+
+# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
+# load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -33,7 +28,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
 # zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
 # zstyle ':omz:update' frequency 13
@@ -72,32 +67,27 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+zstyle ':omz:plugins:eza' 'icons' yes
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-navigation-tools fzf eza)
+plugins=(git eza fzf zsh-autosuggestions zsh-syntax-highlighting starship)
+
 
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}' --preview-window '~3'"
 
-zstyle ':omz:plugins:eza' 'icons' yes
-zstyle ':omz:plugins:eza' 'header' yes
-zstyle ':omz:plugins:eza' 'git-status' yes
-
-zstyle ':completion:*:*:make:*' tag-order 'targets'
-zstyle ':completion:*:make:*:targets' call-command true
-
-alias rs-ptx='rsync -avP "$(fd --follow --format {}| fzf)" ptx:/media/realroot/home/mms'
-alias rs-ptx_off='rsync -avP "$(fd --follow --format {}| fzf)" ptx_off:/media/realroot/home/mms'
-alias rs-server='rsync -avP "$(fd --follow --format {}| fzf)" ubserver:Downloads/'
-alias xpra="CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1 /Applications/Xpra.app/Contents/MacOS/xpra"
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-autoload -U compinit && compinit
-
-
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
 
 source $ZSH/oh-my-zsh.sh
 
@@ -112,44 +102,27 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='nvim'
+#   export EDITOR='mvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
+# export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-eval "$(/Users/joao.alves/.local/bin/mise activate zsh)"
-eval "$(gh copilot alias -- zsh)"
 
-export MICRO_TRUECOLOR=1
-# export UV_NATIVE_TLS=true
-export SSL_CERT_FILE="/Users/joao.alves/ZscalerRootCertificate-2048-SHA256/ZscalerRootCertificate-2048-SHA256.pem"
-export SSL_CERT_DIR="$(dirname ${SSL_CERT_FILE})"
-export REQUESTS_CA_BUNDLE="${SSL_CERT_DIR}"
-export NODE_EXTRA_CA_CERTS="${SSL_CERT_FILE}"
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-export EDITOR="$(which micro)"
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/joao.alves/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
-
-export NVM_DIR="$HOME/.nvm"
+export NVM_DIR="/Users/john/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#alias python=/opt/homebrew/bin/python3
+#export PATH="${PATH}:$(pyenv root)/shims"
+eval "$(/Users/john/.local/bin/mise activate zsh)"
+eval "$(~/.local/bin/mise activate zsh)"
+alias close-desktop="kitten @ --to=unix:/tmp/desktop close-window"
+
+# kitten icat -n --place 30x30@0x6 --scale-up --align left Downloads/pikachu.gif | fastfetch --logo-width 30 --raw -
