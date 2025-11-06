@@ -45,7 +45,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -140,6 +140,7 @@ export SSL_CERT_FILE="/Users/joao.alves/ZscalerRootCertificate-2048-SHA256/Zscal
 export SSL_CERT_DIR="$(dirname ${SSL_CERT_FILE})"
 export REQUESTS_CA_BUNDLE="${SSL_CERT_DIR}"
 export NODE_EXTRA_CA_CERTS="${SSL_CERT_FILE}"
+export GPG_TTY=$(tty)
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
