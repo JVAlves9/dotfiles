@@ -54,7 +54,7 @@ DISABLE_AUTO_TITLE="true"
 # You can also set it to another string to have that shown instead of the default red dots.
 # e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -140,7 +140,7 @@ export SSL_CERT_FILE="/Users/joao.alves/ZscalerRootCertificate-2048-SHA256/Zscal
 export SSL_CERT_DIR="$(dirname ${SSL_CERT_FILE})"
 export REQUESTS_CA_BUNDLE="${SSL_CERT_DIR}"
 export NODE_EXTRA_CA_CERTS="${SSL_CERT_FILE}"
-export GPG_TTY=$(tty)
+export GPG_TTY=$TTY
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -154,3 +154,37 @@ compinit
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# history size
+export HISTSIZE=10000000
+export SAVEHIST=$HISTSIZE
+
+# end history size
+
+gitlogue-menu() {
+  local choice
+  choice=$(echo -e "Random commits\nSpecific commit\nBy author\nBy date range\nTheme selection" | \
+           fzf --prompt="gitlogue> " --height=40% --reverse)
+
+  case "$choice" in
+    "Random commits")
+      gitlogue
+      ;;
+    "Specific commit")
+      local commit=$(git log --oneline | fzf --prompt="Select commit> " | awk '{print $1}')
+      [ -n "$commit" ] && gitlogue --commit "$commit"
+      ;;
+    "By author")
+      local author=$(git log --format='%an' | sort -u | fzf --prompt="Select author> ")
+      [ -n "$author" ] && gitlogue --author "$author"
+      ;;
+    "By date range")
+      local after=$(echo -e "1 day ago\n1 week ago\n2 weeks ago\n1 month ago" | fzf --prompt="After> ")
+      [ -n "$after" ] && gitlogue --after "$after"
+      ;;
+    "Theme selection")
+      local theme=$(gitlogue theme list | tail -n +2 | sed 's/^  - //' | fzf --prompt="Select theme> ")
+      [ -n "$theme" ] && gitlogue --theme "$theme"
+      ;;
+  esac
+}
