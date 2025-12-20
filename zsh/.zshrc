@@ -45,7 +45,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -72,6 +72,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
+export PATH="/home/john/RustRover-2025.2.4.1/bin:${PATH}"
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -90,10 +93,10 @@ zstyle ':omz:plugins:eza' 'git-status' yes
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 zstyle ':completion:*:make:*:targets' call-command true
 
-alias rs-ptx='rsync -avP "$(fd --follow --format {}| fzf)" ptx:/media/realroot/home/mms'
-alias rs-ptx_off='rsync -avP "$(fd --follow --format {}| fzf)" ptx_off:/media/realroot/home/mms'
-alias rs-server='rsync -avP "$(fd --follow --format {}| fzf)" ubserver:Downloads/'
-alias xpra="CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1 /Applications/Xpra.app/Contents/MacOS/xpra"
+# alias rs-ptx='rsync -avP "$(fd --follow --format {}| fzf)" ptx:/media/realroot/home/mms'
+# alias rs-ptx_off='rsync -avP "$(fd --follow --format {}| fzf)" ptx_off:/media/realroot/home/mms'
+# alias rs-server='rsync -avP "$(fd --follow --format {}| fzf)" ubserver:Downloads/'
+# alias xpra="CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1 /Applications/Xpra.app/Contents/MacOS/xpra"
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 autoload -U compinit && compinit
 
@@ -129,23 +132,23 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-eval "$(/Users/joao.alves/.local/bin/mise activate zsh)"
-eval "$(gh copilot alias -- zsh)"
+source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# eval "$(/Users/joao.alves/.local/bin/mise activate zsh)"
+# eval "$(gh copilot alias -- zsh)"
 
 export MICRO_TRUECOLOR=1
 # export UV_NATIVE_TLS=true
-export SSL_CERT_FILE="/Users/joao.alves/ZscalerRootCertificate-2048-SHA256/ZscalerRootCertificate-2048-SHA256.pem"
-export SSL_CERT_DIR="$(dirname ${SSL_CERT_FILE})"
-export REQUESTS_CA_BUNDLE="${SSL_CERT_DIR}"
-export NODE_EXTRA_CA_CERTS="${SSL_CERT_FILE}"
+# export SSL_CERT_FILE="/Users/joao.alves/ZscalerRootCertificate-2048-SHA256/ZscalerRootCertificate-2048-SHA256.pem"
+# export SSL_CERT_DIR="$(dirname ${SSL_CERT_FILE})"
+# export REQUESTS_CA_BUNDLE="${SSL_CERT_DIR}"
+# export NODE_EXTRA_CA_CERTS="${SSL_CERT_FILE}"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export EDITOR="$(which micro)"
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/joao.alves/.docker/completions $fpath)
+# fpath=(/Users/joao.alves/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
