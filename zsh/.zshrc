@@ -89,6 +89,7 @@ export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-ran
 zstyle ':omz:plugins:eza' 'icons' yes
 zstyle ':omz:plugins:eza' 'header' yes
 zstyle ':omz:plugins:eza' 'git-status' yes
+zstyle ':omz:plugins:eza' 'hyperlink' yes
 
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 zstyle ':completion:*:make:*:targets' call-command true
@@ -142,3 +143,4 @@ export MICRO_TRUECOLOR=1
 
 export EDITOR="$(which micro)"
 # kitten icat -n --place 30x30@0x6 --scale-up --align left Downloads/pikachu.gif | fastfetch --logo-width 30 --raw -
+autoload zmv
