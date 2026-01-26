@@ -132,7 +132,7 @@ source $ZSH/oh-my-zsh.sh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(/Users/joao.alves/.local/bin/mise activate zsh)"
-eval "$(gh copilot alias -- zsh)"
+# eval "$(gh copilot alias -- zsh)"
 
 export MICRO_TRUECOLOR=1
 # export UV_NATIVE_TLS=true
@@ -141,6 +141,7 @@ export SSL_CERT_DIR="$(dirname ${SSL_CERT_FILE})"
 export REQUESTS_CA_BUNDLE="${SSL_CERT_DIR}"
 export NODE_EXTRA_CA_CERTS="${SSL_CERT_FILE}"
 export GPG_TTY=$TTY
+export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/ripgreprc"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
