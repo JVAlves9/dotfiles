@@ -79,7 +79,7 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git eza fzf zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git eza fzf zsh-autosuggestions zsh-syntax-highlighting python)
 
 
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
@@ -93,6 +93,10 @@ zstyle ':omz:plugins:eza' 'hyperlink' yes
 
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 zstyle ':completion:*:make:*:targets' call-command true
+
+PYTHON_VENV_NAME=".venv"
+PYTHON_VENV_NAMES=($PYTHON_VENV_NAME venv)
+PYTHON_AUTO_VRUN=true
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -144,3 +148,6 @@ export MICRO_TRUECOLOR=1
 export EDITOR="$(which micro)"
 # kitten icat -n --place 30x30@0x6 --scale-up --align left Downloads/pikachu.gif | fastfetch --logo-width 30 --raw -
 autoload zmv
+
+# Added by Antigravity
+export PATH="/Users/john/.antigravity/antigravity/bin:$PATH"
