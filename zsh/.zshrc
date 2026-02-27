@@ -134,6 +134,8 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(/Users/joao.alves/.local/bin/mise activate zsh)"
 # eval "$(gh copilot alias -- zsh)"
 
+alias nvim="PATH=\"${PATH}:${HOME}/.local/share/nvim/mason/bin\" nvim"
+
 export MICRO_TRUECOLOR=1
 # export UV_NATIVE_TLS=true
 export SSL_CERT_FILE="/Users/joao.alves/ZscalerRootCertificate-2048-SHA256/ZscalerRootCertificate-2048-SHA256.pem"
@@ -145,7 +147,7 @@ export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/ripgreprc"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export EDITOR="$(which micro)"
+export EDITOR="$(which nvim)"
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/joao.alves/.docker/completions $fpath)
 autoload -Uz compinit
