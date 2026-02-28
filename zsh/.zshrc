@@ -145,7 +145,9 @@ export MICRO_TRUECOLOR=1
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export EDITOR="$(which micro)"
+alias nvim="PATH=\"${PATH}:${HOME}/.local/share/nvim/mason/bin/\" nvim" 
+
+export EDITOR="$(which nvim)"
 # kitten icat -n --place 30x30@0x6 --scale-up --align left Downloads/pikachu.gif | fastfetch --logo-width 30 --raw -
 autoload zmv
 
