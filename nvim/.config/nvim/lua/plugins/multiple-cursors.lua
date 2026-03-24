@@ -12,28 +12,28 @@ return {
     { "<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = { "n", "i" }, desc = "Add or remove cursor" },
 
     {
-      "<Leader>m",
+      "<localleader>m",
       "<Cmd>MultipleCursorsAddVisualArea<CR>",
       mode = { "x" },
       desc = "Add cursors to the lines of the visual area",
     },
 
-    { "<Leader>a", "<Cmd>MultipleCursorsAddMatches<CR>", mode = { "n", "x" }, desc = "Add cursors to cword" },
+    { "<localleader>a", "<Cmd>MultipleCursorsAddMatches<CR>", mode = { "n", "x" }, desc = "Add cursors to cword" },
     {
-      "<Leader>A",
+      "<localleader>A",
       "<Cmd>MultipleCursorsAddMatchesV<CR>",
       mode = { "n", "x" },
       desc = "Add cursors to cword in previous area",
     },
 
     {
-      "<Leader>d",
+      "<localleader>d",
       "<Cmd>MultipleCursorsAddJumpNextMatch<CR>",
       mode = { "n", "x" },
       desc = "Add cursor and jump to next cword",
     },
-    { "<Leader>D", "<Cmd>MultipleCursorsJumpNextMatch<CR>", mode = { "n", "x" }, desc = "Jump to next cword" },
+    { "<localleader>D", "<Cmd>MultipleCursorsJumpNextMatch<CR>", mode = { "n", "x" }, desc = "Jump to next cword" },
 
-    { "<Leader>l", "<Cmd>MultipleCursorsLock<CR>", mode = { "n", "x" }, desc = "Lock virtual cursors" },
+    { "<localleader>l", "<Cmd>MultipleCursorsLock<CR>", mode = { "n", "x" }, desc = "Lock virtual cursors" },
   },
 }
